@@ -32,6 +32,10 @@ idk=Kingsley.__dict__
 Goyco = Villain("Goyco","Textbook",0,"summons",200)
 
 Goyco.weaponattack(50)
+<<<<<<< Updated upstream
 Goyco.summoned(idk['_Monster__name'])
+=======
+Kingsley.summoned(Kingsley)
+>>>>>>> Stashed changes
 
         
