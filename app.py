@@ -21,6 +21,13 @@ class Monster(Villain):
         self.power = power
         self.hp = hp
 
+<<<<<<< Updated upstream
+=======
+    def summoned(self,__name):
+        super().__init__(villainname="Goyco")
+        print(f"{self.villainname} has summoned {__name}")
+
+>>>>>>> Stashed changes
     def attack(power, self):
         self.power.append()
         print(f"{self.hp} has %{self.__hp}")
