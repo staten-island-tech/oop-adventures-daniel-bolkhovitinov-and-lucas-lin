@@ -1,4 +1,5 @@
-<<<<<<< HEAD
+import random
+
 class Hero:
     def __init__(self, name, money, inventory):
         self.name = name
@@ -23,21 +24,7 @@ class BankAccount:
     def show_balance(self):
         print(f"{self.owner} has ${self.__balance}") 
 
-class Monster: 
-    def __init__(self, name, money,power,hp):
-        self.name = name
-        self.money = money
-        self.power = power
-        self.hp = hp
-    def attack(power, self):
-        self.power.append()
-        print(f"{self.hp} has %{self.__hp}")
 
-Whalen = Monster("Whalen", 150, 100 ["Brute Strength"],50)
-Whalen.attack("title": "Brute Attack","atk":150)
-print(Whalen.__dict__)
-=======
-import random
 class Villain:
     def __init__(self,villainname,weapon,money,power,hp):
         self.villainname=villainname
@@ -89,4 +76,4 @@ Goyco.summoned(idk['_Monster__name'])
 Goyco.powerattack()
 Goyco.gettingattacked()
         
->>>>>>> lukas
+
