@@ -25,7 +25,7 @@ class Villain:
         print(f"{self.villainname} health is now {self.__hp}!")
 
         if self.__hp == 0:
-            print(f"{self.villainname} has been defeated.{self.villainname}has dropped{}")
+            print(f"{self.villainname} has been defeated.{self.villainname}has dropped{self.__money}money and dropped{self.__weapon}")
 
 
 class Monster(Villain): 
