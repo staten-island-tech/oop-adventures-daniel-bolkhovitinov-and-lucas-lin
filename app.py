@@ -58,6 +58,8 @@ class Monster(Villain):
         damage=random.randint(50,100)
         print(f"{idk['_Monster__name']} with {idk['power']} has done {damage} damage!")
 
+    def block(self,dmgreduction):
+        
         
      
 Kingsley = Monster("Kingsley",1000,"MindlessCrashouts",80)
@@ -71,3 +73,4 @@ Goyco.summoned(idk['_Monster__name'])
 Kingsley.attack(idk['power'])
 Goyco.gettingattacked()
 Goyco.dialogue()
+
