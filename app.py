@@ -13,8 +13,6 @@ class Villain:
     def summoned(self,__name):
         print(f"{self.villainname} has summoned {__name}")
 
-    def powerattack(self):
-        damage=random.randint(1,10)
     def gettingattacked(self):
         attacked = random.randint(20,30)
         print(f"heroname has done {attacked} damage to {self.villainname}")
@@ -53,13 +51,18 @@ class Monster(Villain):
         self.power = power
         self.hp = hp
 
-    def attack(power, self):
-        super().powerattack()
+    def attack(power,self):
         damage=random.randint(50,100)
         print(f"{idk['_Monster__name']} with {idk['power']} has done {damage} damage!")
 
-    def block(self,dmgreduction):
-        
+    def block(self):
+        heroattack=int(50)
+        dmgreduction=heroattack/2
+        print(f"{self.__name} has blocked your attack by {dmgreduction} damage!")
+
+    
+
+
         
      
 Kingsley = Monster("Kingsley",1000,"MindlessCrashouts",80)
@@ -73,4 +76,4 @@ Goyco.summoned(idk['_Monster__name'])
 Kingsley.attack(idk['power'])
 Goyco.gettingattacked()
 Goyco.dialogue()
-
+Kingsley.block()
