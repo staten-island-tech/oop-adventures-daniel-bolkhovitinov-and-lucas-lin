@@ -1,7 +1,7 @@
 import random
 class Villain:
-    def __init__(self,villainname,weapon,money,power,hp):
-        self.villainname=villainname
+    def __init__(self,name,weapon,money,power,hp):
+        self.name=name
         self.__money=money
         self.power=power
         self.__hp=hp
@@ -11,13 +11,16 @@ class Villain:
         print(f"{self.__weapon} has done {damage} damage!")
 
     def summoned(self,__name):
-        print(f"{self.villainname} has summoned {__name}")
+        print(f"{self.name} has summoned {__name}")
 
     def gettingattacked(self):
         attacked = random.randint(20,30)
-        print(f"heroname has done {attacked} damage to {self.villainname}")
+        print(f"heroname has done {attacked} damage to {self.name} and {idk['_Monster__name']}")
         self.__hp -= attacked
-        print(f"{self.villainname} health is now {self.__hp}!")
+        idk['hp'] -= attacked
+        print(f"{self.name} health is now {self.__hp}!")
+        print(f"{idk['_Monster__name']} health is now {idk['hp']}!")
+    
     def dialogue(self):
         villain_lines = {
         1: "You mistake mercy for weakness—that’s why you’re losing.",
@@ -42,7 +45,9 @@ class Villain:
             break
         
         if self.__hp <= 0:
-            print(f"{self.villainname} has been defeated.{self.villainname} has dropped {self.__money} money and dropped {self.__weapon}")
+            print(f"{self.name} has been defeated.{self.name} has dropped {self.__money} money and dropped {self.__weapon}")
+
+
 
 class Monster(Villain): 
     def __init__(self, name, money,power,hp):
@@ -59,17 +64,19 @@ class Monster(Villain):
         heroattack=int(50)
         dmgreduction=heroattack/2
         print(f"{self.__name} has blocked your attack by {dmgreduction} damage!")
+    
+    
+        
+
 
     
 
-
-        
      
 Kingsley = Monster("Kingsley",1000,"MindlessCrashouts",80)
 idk=Kingsley.__dict__
 
 Goyco = Villain("Goyco","Textbook",100,"summons",200)
-
+idks=Goyco.__dict__
 
 Goyco.weaponattack(50)
 Goyco.summoned(idk['_Monster__name'])
