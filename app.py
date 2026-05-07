@@ -22,11 +22,11 @@ class Villain:
 
     def gettingattacked(self):
         attacked = random.randint(20,30)
-        print(f"heroname has done {attacked} damage to {self.name} and {idk['_Monster__name']}")
+        print(f"heroname has done {attacked} damage to {self.name} and {Monsterdict['_Monster__name']}")
         self.__hp -= attacked
-        idk['hp'] -= attacked
+        Monsterdict['hp'] -= attacked
         print(f"{self.name} health is now {self.__hp}!")
-        print(f"{idk['_Monster__name']} health is now {idk['hp']}!")
+        print(f"{Monsterdict['_Monster__name']} health is now {Monsterdict['hp']}!")
     
     def dialogue(self):
         villain_lines = {
@@ -65,7 +65,7 @@ class Monster(Villain):
 
     def attack(power,self):
         damage=random.randint(50,100)
-        print(f"{idk['_Monster__name']} with {idk['power']} has done {damage} damage!")
+        print(f"{Monsterdict['_Monster__name']} with {Monsterdict['power']} has done {damage} damage!")
 
     def block(self):
         heroattack=int(50)
@@ -78,32 +78,35 @@ class dungeon(Villain):
         self.room=room
     
     def entryroom(self):
-        print(f"You have entered into {self.name} dungeon.")
-        decision=input("Do You Wish to Continue In? Yes/No: ")
-        if decision == ("yes") or "Yes" or "YES" or "YEs":
-            randomline=random.randint(1,5)
-            dungeon_responses = {
+        dungeon_responses = {
                 1: "Then there’s no turning back now.",
                 2: "Stay close. These halls aren’t forgiving.",
                 3: "Keep your weapon ready and your eyes open.",
-                4: "No matter what happens, don’t get separated.",
+                4: "What ever happens, don’t get separated.",
                 5: "Alright… let’s see what’s waiting for us inside."
                 }
-            print(dungeon_responses[randomline])
+        print(f"You have entered into {self.name} dungeon.")
         
-        elif decision == ("no") or ("No") or ("NO"):
+        decision=input("Do You Wish to Continue In? Yes/No: ")
+        if  decision == ("no") or ("No") or ("NO"):
+            
             print("You Have No Choice get yo sorry ass in there lol")
             health = 100
             damaged =  health/2 
             print(f"Your health has fallen by {damaged} health")
+       
+        if decision == ("yes") or ("Yes") or "YES" or "YEs":
+            randomline=random.randint(1,5)
+            print(dungeon_responses[randomline])
+        
 
 
      
 Kingsley = Monster("Kingsley",1000,"MindlessCrashouts",80)
-idk=Kingsley.__dict__
+Monsterdict=Kingsley.__dict__
 
 Goyco = Villain("Goyco","Textbook",100,"summons",200)
-idks=Goyco.__dict__
+Villaindict=Goyco.__dict__
 
 arbys =dungeon("Arbys",10)
 
