@@ -1,4 +1,11 @@
 import random
+class placeholderheroidk:
+    def __init__(self,name,money,weapon,health):
+        self.name=name
+        self.money=money
+        self.weapon=weapon
+        self.health=health
+
 class Villain:
     def __init__(self,name,weapon,money,power,hp):
         self.name=name
@@ -65,11 +72,31 @@ class Monster(Villain):
         dmgreduction=heroattack/2
         print(f"{self.__name} has blocked your attack by {dmgreduction} damage!")
     
+class dungeon(Villain):
+    def __init__(self,name,room):
+        self.name=name
+        self.room=room
     
+    def entryroom(self):
+        print(f"You have entered into {self.name} dungeon.")
+        decision=input("Do You Wish to Continue In? Yes/No: ")
+        if decision == ("yes") or "Yes" or "YES" or "YEs":
+            randomline=random.randint(1,5)
+            dungeon_responses = {
+                1: "Then there’s no turning back now.",
+                2: "Stay close. These halls aren’t forgiving.",
+                3: "Keep your weapon ready and your eyes open.",
+                4: "No matter what happens, don’t get separated.",
+                5: "Alright… let’s see what’s waiting for us inside."
+                }
+            print(dungeon_responses[randomline])
         
+        elif decision == ("no") or ("No") or ("NO"):
+            print("You Have No Choice get yo sorry ass in there lol")
+            health = 100
+            damaged =  health/2 
+            print(f"Your health has fallen by {damaged} health")
 
-
-    
 
      
 Kingsley = Monster("Kingsley",1000,"MindlessCrashouts",80)
@@ -78,9 +105,13 @@ idk=Kingsley.__dict__
 Goyco = Villain("Goyco","Textbook",100,"summons",200)
 idks=Goyco.__dict__
 
-Goyco.weaponattack(50)
+arbys =dungeon("Arbys",10)
+
+""" Goyco.weaponattack(50)
 Goyco.summoned(idk['_Monster__name'])
 Kingsley.attack(idk['power'])
 Goyco.gettingattacked()
 Goyco.dialogue()
-Kingsley.block()
+Kingsley.block() """
+
+arbys.entryroom()
