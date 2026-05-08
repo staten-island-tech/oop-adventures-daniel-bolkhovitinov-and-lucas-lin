@@ -88,18 +88,39 @@ class dungeon(Villain):
         print(f"You have entered into {self.name} dungeon.")
         
         decision=input("Do You Wish to Continue In? Yes/No: ")
-        if  decision == ("no") or ("No") or ("NO"):
-            
+        
+        if  decision == ("no"):
             print("You Have No Choice get yo sorry ass in there lol")
             health = 100
             damaged =  health/2 
             print(f"Your health has fallen by {damaged} health")
-       
-        if decision == ("yes") or ("Yes") or "YES" or "YEs":
+        elif decision == ("yes"):
             randomline=random.randint(1,5)
             print(dungeon_responses[randomline])
-        
-
+    def bridgeroom(self):
+        print("A bridge lays between you and venturing farther into the dungeon.The bridge groaned beneath the weight of the wind, its broken planks swaying above the dark ravine below.")
+        bridge=input(f"Do You Wish To cross the bridge and make it to the boss faster, or find a different route?")
+        if bridge == ("yes"): #need to make it accept more inputs
+            chance = random.randint(1,4)
+            if chance == 1:
+                print("Your footing slips on the rotten planks, and within seconds you vanish into the abyss below, never to rise again.")
+                # they die instantly or lose health idk we can put the code in later
+            elif chance >= 2:
+                print("You have crossed the bridge safely, and explore deeper into the dungeon")
+        elif bridge == ("no"):#need to make it accept more inputs
+            print("you have left the room, but tripped and dropped your sword into the ravine, never to be seen again")#could add something to do this later
+    
+    def traproom(self):
+        survival_choices = {
+           "option":"Jump as high as you can, and hang on the ceiling pipe",
+           "option": "run as fast as you can into the crack",
+           "option":"use your items and body weight to hold the walls in place"
+        }
+        print("you walked in the blank room, and saw nothing, but then, hidden mechanisms clicked to life around them")
+        print("the chamber was a trap room, and the doors slammed shut behind them")
+        print("as the walls close in on you, you see a crevice on the wall for survival, and see a pipe on the ceiling.Do You")
+        for index,item in enumerate(survival_choices):
+            print(index, ":",item["option"] )
 
      
 Kingsley = Monster("Kingsley",1000,"MindlessCrashouts",80)
@@ -117,4 +138,5 @@ Goyco.gettingattacked()
 Goyco.dialogue()
 Kingsley.block() """
 
-arbys.entryroom()
+
+arbys.traproom()
