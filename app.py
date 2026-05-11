@@ -97,7 +97,7 @@ class dungeon(Villain):
         elif decision == ("yes"):
             randomline=random.randint(1,5)
             print(dungeon_responses[randomline])
-    def bridgeroom(self):
+    def bridgeroom(self): 
         print("A bridge lays between you and venturing farther into the dungeon.The bridge groaned beneath the weight of the wind, its broken planks swaying above the dark ravine below.")
         bridge=input(f"Do You Wish To cross the bridge and make it to the boss faster, or find a different route?")
         if bridge == ("yes"): #need to make it accept more inputs
@@ -110,19 +110,43 @@ class dungeon(Villain):
         elif bridge == ("no"):#need to make it accept more inputs
             print("you have left the room, but tripped and dropped your sword into the ravine, never to be seen again")#could add something to do this later
     
-    def traproom(self):
-        survival_choices = {
-           "option":"Jump as high as you can, and hang on the ceiling pipe",
-           "option": "run as fast as you can into the crack",
-           "option":"use your items and body weight to hold the walls in place"
-        }
-        print("you walked in the blank room, and saw nothing, but then, hidden mechanisms clicked to life around them")
-        print("the chamber was a trap room, and the doors slammed shut behind them")
-        print("as the walls close in on you, you see a crevice on the wall for survival, and see a pipe on the ceiling.Do You")
-        for index,item in enumerate(survival_choices):
-            print(index, ":",item["option"] )
+    def traproom(self): 
+        survival_choices = [
+           {"name":"Jump as high as you can, and hang on the ceiling pipe"},
+           {"name": "run as fast as you can into the crack"},
+           {"name":"use your items and body weight to hold the walls in place"},
+        ]
+           
+        print("You walked in the blank room, and saw nothing, but then, hidden mechanisms clicked to life around them")
+        print("The chamber was a trap room, and the doors slammed shut behind them")
+        print("As the walls close in on you, you see a crevice on the wall for survival, and see a pipe on the ceiling. Do You")
+        
+        for index,items in enumerate(survival_choices):
+            print(index, ":", items["name"])
 
-     
+        choice = int(input("What Do you want to do? Pick the number to choose your choice:"))
+
+        if choice == 0:
+            survival =random.randint(1,10)
+            if survival  == 1:
+                print("You jump towards the pipe and hang on to it. As the walls close in, you hang on with dear life and manage to make it out from a vent hidden in the ceiling.")
+            else :
+                print("You jump up, but your hands slip and you fall and you die")
+        elif choice == 1:
+            survivalpt2 = random.randint(1,3)
+            if survivalpt2 ==  1:
+                print("You run as fast as you can, and squeezed in the hole. As the walls contract, you see gold appear from the floor.")
+            else : # change later
+                print("You run as fast as you can, but then, lactic acid hits your cranium and brainfucks you, giving you a bloodclot in your penis, killing you before the walls can close in")
+        elif choice == 2:
+            survivalpt3  = random.randint(1,100)
+            if survivalpt3 == 1:
+                print("As you brace your items and muscles against the walls, you suddenly spike in aderinline and coristol, giving you immense strength untill the walls contract. As you passout, gold and jewels fall from the ceiling")
+            else : # change later
+                print("As you brace yourself, you actaully start bracing yourself against the forces of the walls")
+                print("But then, out of nowhere, your spine snaps, immoblizing your from reaching, and as you try and go, you suddenly spike on seratonin, causing you to pass out and die ")
+    def fightroom(self):
+        print("As you walk in, you come across foul creatures")
 Kingsley = Monster("Kingsley",1000,"MindlessCrashouts",80)
 Monsterdict=Kingsley.__dict__
 
@@ -138,5 +162,6 @@ Goyco.gettingattacked()
 Goyco.dialogue()
 Kingsley.block() """
 
-
+arbys.entryroom()
+arbys.bridgeroom()
 arbys.traproom()
