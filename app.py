@@ -72,7 +72,7 @@ class Monster(Villain):
         dmgreduction=heroattack/2
         print(f"{self.__name} has blocked your attack by {dmgreduction} damage!")
     
-class dungeon(Villain):
+class dungeon(placeholderheroidk):
     def __init__(self,name,room):
         self.name=name
         self.room=room
@@ -146,13 +146,40 @@ class dungeon(Villain):
                 print("As you brace yourself, you actaully start bracing yourself against the forces of the walls")
                 print("But then, out of nowhere, your spine snaps, immoblizing your from reaching, and as you try and go, you suddenly spike on seratonin, causing you to pass out and die ")
     def fightroom(self):
-        print("As you walk in, you come across foul creatures")
+        fight_choices = [
+            {"option": "Fight"},
+            {"option": "Items"},
+            {"option": "Run"}
+        ]
+        orc_hp = [
+            {"name":"Rattlefang","health": 50},
+            {"name":"Murkbit","health": 55},
+            {"health": 45}
+        ]
+        print("As you walk in, you come across foul creatures ready to fight you")
+        heroname = lebron['name']
+        heroweapon = lebron['weapon']
+        herohealth = lebron['health']
+        print(f"As you grip your {heroweapon} tightly, the room lights up, showing a group of orcs ready to kill you {heroname}.")
+        print(f"You then see {Monsterdict['_Monster__name']} show up, ready to kill you")
+        for index, items in enumerate(fight_choices):
+            print(index, ":", items["option"])
+        for items in enumerate(orc_hp):
+            print(items["health"])
+        choice = input("What Will You Do?")
+
+               
+               
+        
 Kingsley = Monster("Kingsley",1000,"MindlessCrashouts",80)
 Monsterdict=Kingsley.__dict__
 
 Goyco = Villain("Goyco","Textbook",100,"summons",200)
 Villaindict=Goyco.__dict__
 
+lebronjames = placeholderheroidk("lebron",1420000000, "basketball", 9999999999999999999)
+lebron=lebronjames.__dict__
+print(lebron)
 arbys =dungeon("Arbys",10)
 
 """ Goyco.weaponattack(50)
@@ -162,6 +189,8 @@ Goyco.gettingattacked()
 Goyco.dialogue()
 Kingsley.block() """
 
-arbys.entryroom()
+""" arbys.entryroom()
 arbys.bridgeroom()
-arbys.traproom()
+arbys.traproom() """
+
+arbys.fightroom()
