@@ -1,43 +1,10 @@
-<<<<<<< HEAD
-class Hero:
-    def __init__(self, name, money, inventory):
-        self.name = name
-        self.money = money
-        self.inventory = inventory
-
-    def buy(self, item):
-        self.inventory.append(item)
-        print(self.inventory)
-
-Josh = Hero("Jillian", 150, ["Potion"])
-Josh.buy({"title": "Sword", "atk": 34})
-print(Josh.__dict__)
-class BankAccount:
-    def __init__(self, owner, balance):
-        self.owner = owner
-        self.__balance = balance  
-
-    def deposit(self, amount):
-        self.__balance += amount
-
-    def show_balance(self):
-        print(f"{self.owner} has ${self.__balance}") 
-
-class Monster: 
-    def __init__(self, name, money,power,hp):
-        self.name = name
-        self.money = money
-        self.power = power
-        self.hp = hp
-    def attack(power, self):
-        self.power.append()
-        print(f"{self.hp} has %{self.__hp}")
-
-Whalen = Monster("Whalen", 150, 100 ["Brute Strength"],50)
-Whalen.attack("title": "Brute Attack","atk":150)
-print(Whalen.__dict__)
-=======
 import random
+class placeholderheroidk:
+    def __init__(self,name,money,weapon,health):
+        self.name=name
+        self.money=money
+        self.weapon=weapon
+        self.health=health
 class Villain:
     def __init__(self,name,weapon,money,power,hp):
         self.name=name
@@ -186,19 +153,27 @@ class dungeon(placeholderheroidk):
         orc_hp = [
             {"name":"Rattlefang","health": 50},
             {"name":"Murkbit","health": 55},
-            {"health": 45}
+            {"name":"Skarnox","health": 45}
         ]
         print("As you walk in, you come across foul creatures ready to fight you")
         heroname = lebron['name']
         heroweapon = lebron['weapon']
+        heroweapondmg = random.randint(8,12)# fixed value later
         herohealth = lebron['health']
         print(f"As you grip your {heroweapon} tightly, the room lights up, showing a group of orcs ready to kill you {heroname}.")
         print(f"You then see {Monsterdict['_Monster__name']} show up, ready to kill you")
         for index, items in enumerate(fight_choices):
             print(index, ":", items["option"])
-        for items in enumerate(orc_hp):
-            print(items["health"])
-        choice = input("What Will You Do?")
+        for index,items in enumerate(orc_hp):
+            print(f"Orc:{items["name"]} hp:{items["health"]}")
+        choice = int(input("What Will You Do? Type number for option: ")) #inventory not made so items dont work 
+        if choice == 0:
+            fight = input("Who are you attacking? Type name to decide: ")
+            if fight== ("rattlefang"): #babyproof later
+                orc_hp[1]["health"] -= heroweapondmg 
+                print(f"{orc_hp[1]["name"]} is now at {orc_hp[1]["health"]}!")
+            
+
 
                
                
@@ -212,13 +187,6 @@ Villaindict=Goyco.__dict__
 lebronjames = placeholderheroidk("lebron",1420000000, "basketball", 9999999999999999999)
 lebron=lebronjames.__dict__
 print(lebron)
-arbys =dungeon("Arbys",10)
-
-""" Goyco.weaponattack(50)
-Goyco.summoned(idk['_Monster__name'])
-Kingsley.attack(idk['power'])
-Goyco.gettingattacked()
-        
->>>>>>> lukas
+arbys=dungeon("Arbys",10)
 
 arbys.fightroom()
