@@ -142,8 +142,9 @@ class dungeon(placeholderheroidk):
             if survivalpt3 == 1:
                 print("As you brace your items and muscles against the walls, you suddenly spike in aderinline and coristol, giving you immense strength untill the walls contract. As you passout, gold and jewels fall from the ceiling")
             else : # change later
-                print("As you brace yourself, you actaully start bracing yourself against the forces of the walls")
+                print("As you brace yourself, you withstand your body, against the forces of the walls")
                 print("But then, out of nowhere, your spine snaps, immoblizing your from reaching, and as you try and go, you suddenly spike on seratonin, causing you to pass out and die ")
+
     def fightroom(self):
         fight_choices = [
             {"option": "Fight"},
@@ -160,21 +161,42 @@ class dungeon(placeholderheroidk):
         heroweapon = lebron['weapon']
         heroweapondmg = random.randint(8,12)# fixed value later
         herohealth = lebron['health']
+        orcdmg = random.randint(6,8)
         print(f"As you grip your {heroweapon} tightly, the room lights up, showing a group of orcs ready to kill you {heroname}.")
         print(f"You then see {Monsterdict['_Monster__name']} show up, ready to kill you")
-        for index, items in enumerate(fight_choices):
-            print(index, ":", items["option"])
-        for index,items in enumerate(orc_hp):
-            print(f"Orc:{items["name"]} hp:{items["health"]}")
-        choice = int(input("What Will You Do? Type number for option: ")) #inventory not made so items dont work 
-        if choice == 0:
-            fight = input("Who are you attacking? Type name to decide: ")
-            if fight== ("rattlefang"): #babyproof later
-                orc_hp[1]["health"] -= heroweapondmg 
-                print(f"{orc_hp[1]["name"]} is now at {orc_hp[1]["health"]}!")
-            
-
-
+        while True:
+            for index, items in enumerate(fight_choices):
+                print(index, ":", items["option"])
+            for index,items in enumerate(orc_hp):
+                print(f"Orc:{items["name"]} hp:{items["health"]}")
+            print(f"Monster: {Monsterdict["_Monster__name"]}, hp:{Monsterdict["hp"]}")
+            choice = int(input("What Will You Do? Type number for option: ")) #inventory not made so items dont work 
+            if choice == 0:
+                fight = input("Who are you attacking? Type name to decide: ").lower
+                if fight == ("rattlefang"): #babyproof later
+                    orc_hp[1]["health"] -= heroweapondmg 
+                    print(f"{orc_hp[1]["name"]} is now at {orc_hp[1]["health"]} health!")
+                if fight == "murkbit":
+                    orc_hp[2]["health"] -=  heroweapondmg
+                    print(f"{orc_hp[2]["name"]} is now at {orc_hp[2]["health"]} health!")
+                if fight == "skarnox":
+                    orc_hp[3]["health"] -=  heroweapondmg
+                    print(f"{orc_hp[3]["name"]} is now at {orc_hp[3]["health"]} health!")
+                if fight == Monsterdict["_Monster__name"]:
+                    Monsterdict["hp"] -= heroweapondmg
+                    print(f"{Monsterdict['_Monster__name']} is now at {Monsterdict['hp']} health")
+            if choice == 1:
+            #idk no inventory system yet
+                print("Your bag has nothing because you dropped it when you tripped")
+            if choice == 2:
+                Runaway = random.randint(1,10)
+                if Runaway >= 6:
+                    print("You escaped the room, and ran away")
+                    break
+                elif Runaway <= 6:
+                    print("You tried to run, but failed")
+            herohealth -= orcdmg
+            print(f"{orc_hp[1]["name"]} damaged you by {orcdmg}! You are now at {herohealth} hp")
                
                
         
@@ -187,6 +209,7 @@ Villaindict=Goyco.__dict__
 lebronjames = placeholderheroidk("lebron",1420000000, "basketball", 9999999999999999999)
 lebron=lebronjames.__dict__
 print(lebron)
+print(Monsterdict)
 arbys=dungeon("Arbys",10)
 
 arbys.fightroom()
