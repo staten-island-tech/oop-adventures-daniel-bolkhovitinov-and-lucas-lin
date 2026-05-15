@@ -152,14 +152,14 @@ class dungeon(placeholderheroidk):
             {"option": "Run"}
         ]
         orc_hp = [
-            {"name":"Rattlefang","health": 50},
+            {"name":"Rattlefang","health":50},
             {"name":"Murkbit","health": 55},
             {"name":"Skarnox","health": 45}
         ]
+        
         print("As you walk in, you come across foul creatures ready to fight you")
         heroname = lebron['name']
         heroweapon = lebron['weapon']
-        heroweapondmg = random.randint(8,12)# fixed value later
         herohealth = lebron['health']
         orcdmg = random.randint(6,8)
         print(f"As you grip your {heroweapon} tightly, the room lights up, showing a group of orcs ready to kill you {heroname}.")
@@ -167,22 +167,23 @@ class dungeon(placeholderheroidk):
         while True:
             for index, items in enumerate(fight_choices):
                 print(index, ":", items["option"])
-            for index,items in enumerate(orc_hp):
-                print(f"Orc:{items["name"]} hp:{items["health"]}")
+            for items in orc_hp:
+                print(f"Orc: {items['name']} hp: {items['health']}")
             print(f"Monster: {Monsterdict["_Monster__name"]}, hp:{Monsterdict["hp"]}")
+            heroweapondmg = random.randint(8,12)# fixed value later
             choice = int(input("What Will You Do? Type number for option: ")) #inventory not made so items dont work 
             if choice == 0:
-                fight = input("Who are you attacking? Type name to decide: ").lower
+                fight = input("Who are you attacking? Type name to decide: ").lower() #health is fixed, doesnt change in text at all
                 if fight == ("rattlefang"): #babyproof later
-                    orc_hp[1]["health"] -= heroweapondmg 
+                    orc_hp[0]["health"] -= heroweapondmg
+                    print(f"{orc_hp[0]["name"]} is now at {orc_hp[0]["health"]} health!")
+                elif fight == "murkbit":
+                    orc_hp[1]["health"] -= heroweapondmg
                     print(f"{orc_hp[1]["name"]} is now at {orc_hp[1]["health"]} health!")
-                if fight == "murkbit":
-                    orc_hp[2]["health"] -=  heroweapondmg
+                elif fight == "skarnox":
+                    orc_hp[2]["health"] -= heroweapondmg
                     print(f"{orc_hp[2]["name"]} is now at {orc_hp[2]["health"]} health!")
-                if fight == "skarnox":
-                    orc_hp[3]["health"] -=  heroweapondmg
-                    print(f"{orc_hp[3]["name"]} is now at {orc_hp[3]["health"]} health!")
-                if fight == Monsterdict["_Monster__name"]:
+                elif fight == Monsterdict["_Monster__name"]:
                     Monsterdict["hp"] -= heroweapondmg
                     print(f"{Monsterdict['_Monster__name']} is now at {Monsterdict['hp']} health")
             if choice == 1:
@@ -195,9 +196,12 @@ class dungeon(placeholderheroidk):
                     break
                 elif Runaway <= 6:
                     print("You tried to run, but failed")
+            randomorc = random.randint(0,2)
             herohealth -= orcdmg
-            print(f"{orc_hp[1]["name"]} damaged you by {orcdmg}! You are now at {herohealth} hp")
-               
+            print(f"{orc_hp[randomorc]["name"]} damaged you by {orcdmg}! You are now at {herohealth} hp!")
+
+            
+
                
         
 Kingsley = Monster("Kingsley",1000,"MindlessCrashouts",80)
