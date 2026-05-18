@@ -56,11 +56,12 @@ class Villain:
 
 
 class Monster(Villain): 
-    def __init__(self, name, money,power,hp):
+    def __init__(self, name, money,power,damage,hp):
         self.__name = name
         self.money = money
         self.power = power
         self.hp = hp
+        self.damage = damage
 
     def attack(power,self):
         damage=random.randint(50,100)
@@ -161,6 +162,7 @@ class dungeon(placeholderheroidk):
         heroname = lebron['name']
         heroweapon = lebron['weapon']
         herohealth = lebron['health']
+        countdown = 3
         orcdmg = random.randint(6,8)
         print(f"As you grip your {heroweapon} tightly, the room lights up, showing a group of orcs ready to kill you {heroname}.")
         print(f"You then see {Monsterdict['_Monster__name']} show up, ready to kill you")
@@ -170,7 +172,7 @@ class dungeon(placeholderheroidk):
             for items in orc_hp:
                 print(f"Orc: {items['name']} hp: {items['health']}")
             print(f"Monster: {Monsterdict["_Monster__name"]}, hp:{Monsterdict["hp"]}")
-            heroweapondmg = random.randint(8,12)# fixed value later
+            heroweapondmg = random.randint(60,70)# fixed value later
             choice = int(input("What Will You Do? Type number for option: ")) #inventory not made so items dont work 
             if choice == 0:
                 fight = input("Who are you attacking? Type name to decide: ").lower() #health is fixed, doesnt change in text at all
@@ -196,15 +198,33 @@ class dungeon(placeholderheroidk):
                     break
                 elif Runaway <= 6:
                     print("You tried to run, but failed")
-            randomorc = random.randint(0,2)
-            herohealth -= orcdmg
-            print(f"{orc_hp[randomorc]["name"]} damaged you by {orcdmg}! You are now at {herohealth} hp!")
+            livingorc = [orc for orc in orc_hp if orc["health"] > 0]
+            if livingorc:
+                randomorc = random.choice(livingorc)
+                herohealth -= orcdmg
+                print(f"{randomorc["name"]} damaged you by {orcdmg}")
+                print(f"You are now at {herohealth} health!")
+           
+            for orc in orc_hp:
+                if orc["health"] <= 0:
+                    print(f"You have killed {orc['name']}.")
 
+            countdown -= 1
+            print(f"{Monsterdict['_Monster__name']} will attack you in {countdown} turns")
             
+            
+            if countdown == 0:
+                    print(f"{Monsterdict['_Monster__name']} attacked you with {Monsterdict['power']} for {Monsterdict['damage']} damage!")
+                    herohealth -= Monsterdict['damage']
+            if Monsterdict["hp"] <= 0:
+                    print(f"You have killed {Monsterdict['_Monster__name']}.")
+                    countdown == -1
+                    break
+
 
                
         
-Kingsley = Monster("Kingsley",1000,"MindlessCrashouts",80)
+Kingsley = Monster("Kingsley",1000,"MindlessCrashouts",50,80)
 Monsterdict=Kingsley.__dict__
 
 Goyco = Villain("Goyco","Textbook",100,"summons",200)
