@@ -1,10 +1,16 @@
 import random
-class placeholderheroidk:
+class hero:
     def __init__(self,name,money,weapon,health):
         self.name=name
         self.money=money
         self.weapon=weapon
         self.health=health
+class inventory:
+    def __init__(self,item):
+        self.item=item
+    def update_items(self,item_id,amount):
+        self.items[item_id].quantity+=amount
+        print(f"Updated {self.items[item_id].name} stock by {amount}.")
 class Villain:
     def __init__(self,name,weapon,money,power,hp):
         self.name=name
@@ -71,7 +77,7 @@ class Monster(Villain):
         dmgreduction=heroattack/2
         print(f"{self.__name} has blocked your attack by {dmgreduction} damage!")
     
-class dungeon(placeholderheroidk):
+class dungeon(hero):
     def __init__(self,name,room):
         self.name=name
         self.room=room
@@ -89,7 +95,7 @@ class dungeon(placeholderheroidk):
         decision=input("Do You Wish to Continue In? Yes/No: ")
         
         if  decision == ("no"):
-            print("You Have No Choice get yo sorry ass in there lol")
+            print("You Have No Choice get yo sorry ahh in there lol")
             health = 100
             damaged =  health/2 
             print(f"Your health has fallen by {damaged} health")
@@ -210,10 +216,12 @@ Monsterdict=Kingsley.__dict__
 Goyco = Villain("Goyco","Textbook",100,"summons",200)
 Villaindict=Goyco.__dict__
 
-lebronjames = placeholderheroidk("lebron",1420000000, "basketball", 9999999999999999999)
+lebronjames = hero("lebron",1420000000, "basketball", 9999999999999999999)
 lebron=lebronjames.__dict__
 print(lebron)
 print(Monsterdict)
+print(dungeon)
+
 arbys=dungeon("Arbys",10)
 
 arbys.fightroom()
