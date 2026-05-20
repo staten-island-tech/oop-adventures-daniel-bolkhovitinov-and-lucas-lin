@@ -193,7 +193,6 @@ class dungeon(hero):
                     Monsterdict["hp"] -= heroweapondmg
                     print(f"{Monsterdict['_Monster__name']} is now at {Monsterdict['hp']} health")
             if choice == 1:
-            #idk no inventory system yet
                 print("Your bag has nothing because you dropped it when you tripped")
             if choice == 2:
                 Runaway = random.randint(1,10)
@@ -220,7 +219,6 @@ lebronjames = hero("lebron",1420000000, "basketball", 9999999999999999999)
 lebron=lebronjames.__dict__
 print(lebron)
 print(Monsterdict)
-print(dungeon)
 
 arbys=dungeon("Arbys",10)
 
