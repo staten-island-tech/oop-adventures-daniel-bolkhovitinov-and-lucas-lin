@@ -1,4 +1,5 @@
 import random
+import time
 class placeholderheroidk:
     def __init__(self,name,money,weapon,health):
         self.name=name
@@ -13,20 +14,19 @@ class Villain:
         self.__hp=hp
         self.__weapon=weapon
         
-    def weaponattack(self,damage):
+    def weaponattack(self):
+        damage = 20
         print(f"{self.__weapon} has done {damage} damage!")
 
     def summoned(self,__name):
-        print(f"{self.name} has summoned {__name}")
+        print(f"{self.name} has summoned {__name}!")
 
     def gettingattacked(self):
         attacked = random.randint(20,30)
-        print(f"heroname has done {attacked} damage to {self.name} and {Monsterdict['_Monster__name']}")
+        print(f"heroname has done {attacked} damage to {self.name}")
         self.__hp -= attacked
-        Monsterdict['hp'] -= attacked
         print(f"{self.name} health is now {self.__hp}!")
-        print(f"{Monsterdict['_Monster__name']} health is now {Monsterdict['hp']}!")
-    
+        
     def dialogue(self):
         villain_lines = {
         1: "You mistake mercy for weakness—that’s why you’re losing.",
@@ -51,7 +51,7 @@ class Villain:
             break
         
         if self.__hp <= 0:
-            print(f"{self.name} has been defeated.{self.name} has dropped {self.__money} money and dropped {self.__weapon}")
+            print(f"{self.name} has been defeated.{self.name} has dropped {self.__money} money and dropped {self.__weapon}!")
 
 
 
@@ -72,7 +72,7 @@ class Monster(Villain):
         dmgreduction=heroattack/2
         print(f"{self.__name} has blocked your attack by {dmgreduction} damage!")
     
-class dungeon(placeholderheroidk):
+class dungeon(Villain):
     def __init__(self,name,room):
         self.name=name
         self.room=room
@@ -118,7 +118,9 @@ class dungeon(placeholderheroidk):
         ]
            
         print("You walked in the blank room, and saw nothing, but then, hidden mechanisms clicked to life around them")
+        time.sleep(1)
         print("The chamber was a trap room, and the doors slammed shut behind them")
+        time.sleep(1)
         print("As the walls close in on you, you see a crevice on the wall for survival, and see a pipe on the ceiling. Do You")
         
         for index,items in enumerate(survival_choices):
@@ -144,6 +146,7 @@ class dungeon(placeholderheroidk):
                 print("As you brace your items and muscles against the walls, you suddenly spike in aderinline and coristol, giving you immense strength untill the walls contract. As you passout, gold and jewels fall from the ceiling")
             else : # change later
                 print("As you brace yourself, you withstand your body, against the forces of the walls")
+                time.sleep(2)
                 print("But then, out of nowhere, your spine snaps, immoblizing your from reaching, and as you try and go, you suddenly spike on seratonin, causing you to pass out and die ")
 
     def fightroom(self): # almost done, will do later
@@ -157,15 +160,18 @@ class dungeon(placeholderheroidk):
             {"name":"Murkbit","health": 55},
             {"name":"Skarnox","health": 45}
         ]
-        
+        Kingsley = Monster("kingsley",1000,"MindlessCrashouts",50,80)
         print("As you walk in, you come across foul creatures ready to fight you")
+        time.sleep(1)
         heroname = lebron['name']
         heroweapon = lebron['weapon']
         herohealth = lebron['health']
         countdown = 3
         orcdmg = random.randint(6,8)
         print(f"As you grip your {heroweapon} tightly, the room lights up, showing a group of orcs ready to kill you {heroname}.")
+        time.sleep(1)
         print(f"You then see {Monsterdict['_Monster__name']} show up, ready to kill you")
+        time.sleep(1)
         while True:
             for index, items in enumerate(fight_choices):
                 print(index, ":", items["option"])
@@ -225,8 +231,7 @@ class dungeon(placeholderheroidk):
                 print("You Have Died")
 
             if countdown == 0:
-                    print(f"{Monsterdict['_Monster__name']} attacked you with {Monsterdict['power']} for {Monsterdict['damage']} damage!")
-                    herohealth -= Monsterdict['damage']
+                    Kingsley.attack(self)
                     countdown += 3
             if Monsterdict["hp"] <= 0:
                     print(f"You have killed {Monsterdict['_Monster__name']}.")
@@ -239,14 +244,42 @@ class dungeon(placeholderheroidk):
             {"option": "Run"}
         ]
 
+        print("As you walk into the room, you see it.")
+        time.sleep(1)
+        print("You see a massive shadow, from the distance.")
+        time.sleep(1)
+        Goyco = Villain("goyco","Textbook",100,"summons",200)
+        Villaindict=Goyco.__dict__
+        Kingsley = Monster("kingsley",1000,"MindlessCrashouts",50,80)
+        Monsterdict=Kingsley.__dict__
+        print(f"You see it, {Villaindict['name']} ready to kill you")
+        time.sleep(1)
+        Goyco.summoned(Monsterdict['_Monster__name'])
+        time.sleep(1)
+        for index, items in enumerate(fight_choices):
+                print(index, ":", items["option"])
+            
+        choice = int(input("What will you do? Pick number for option:"))
+        if choice == 0:
+                whichone = input("Who do you choose to fight?").lower()
+                if whichone == Villaindict['name']:
+                    Goyco.gettingattacked()
+                elif whichone == Monsterdict['_Monster__name']:
+                    Kingsley.block()
+        
+        """ Goyco.gettingattacked()
+        Goyco.dialogue()
+        Goyco.weaponattack()
+        Kingsley.attack(self)
+        Kingsley.block() """
+
 
                
         
 Kingsley = Monster("kingsley",1000,"MindlessCrashouts",50,80)
 Monsterdict=Kingsley.__dict__
 
-Goyco = Villain("Goyco","Textbook",100,"summons",200)
-Villaindict=Goyco.__dict__
+
 
 lebronjames = placeholderheroidk("lebron",1420000000, "basketball", 9999999999999999999)
 lebron=lebronjames.__dict__
@@ -255,3 +288,4 @@ print(Monsterdict)
 arbys=dungeon("Arbys",10)
 
 """ arbys.fightroom() """
+arbys.bossroom()
