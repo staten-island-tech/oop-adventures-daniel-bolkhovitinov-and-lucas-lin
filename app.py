@@ -99,7 +99,7 @@ class dungeon(Villain):
             print(dungeon_responses[randomline])
     def bridgeroom(self): 
         print("A bridge lays between you and venturing farther into the dungeon.The bridge groaned beneath the weight of the wind, its broken planks swaying above the dark ravine below.")
-        bridge=input(f"Do You Wish To cross the bridge and make it to the boss faster, or find a different route?")
+        bridge=input(f"Do You Wish To cross the bridge and make it to the boss faster, or find a different route?").lower()
         if bridge == ("yes"): #need to make it accept more inputs
             chance = random.randint(1,4)
             if chance == 1:
@@ -266,6 +266,7 @@ class dungeon(Villain):
                     Goyco.gettingattacked()
                 elif whichone == Monsterdict['_Monster__name']:
                     Kingsley.block()
+                    
         
         """ Goyco.gettingattacked()
         Goyco.dialogue()
@@ -286,6 +287,7 @@ lebron=lebronjames.__dict__
 print(lebron)
 print(Monsterdict)
 arbys=dungeon("Arbys",10)
-
-""" arbys.fightroom() """
-arbys.bossroom()
+""" 
+arbys.fightroom() 
+""" 
+arbys.bossroom() 
