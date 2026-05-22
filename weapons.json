@@ -1,0 +1,146 @@
+
+{
+  "weapons": [
+    {
+      "id": 1,
+      "name": "Sword",
+      "attack": 12,
+      "perk": "Balanced",
+      "description": "A standard steel sword used by soldiers."
+    },
+    {
+      "id": 2,
+      "name": "Axe",
+      "attack": 15,
+      "perk": "Armor Break",
+      "description": "A heavy axe built for strong attacks."
+    },
+    {
+      "id": 3,
+      "name": "Dagger",
+      "attack": 8,
+      "perk": "Quick Strike",
+      "description": "A small blade made for quick strikes."
+    },
+    {
+      "id": 4,
+      "name": "Bow",
+      "attack": 10,
+      "perk": "Long Range",
+      "description": "A simple wooden bow for ranged combat."
+    },
+    {
+      "id": 5,
+      "name": "Hammer",
+      "attack": 18,
+      "perk": "Stun Chance",
+      "description": "A large hammer capable of crushing armor."
+    },
+    {
+      "id": 6,
+      "name": "Spear",
+      "attack": 13,
+      "perk": "Extended Reach",
+      "description": "A long spear with excellent reach."
+    },
+    {
+      "id": 7,
+      "name": "Club",
+      "attack": 9,
+      "perk": "Knockback",
+      "description": "A crude wooden club used by bandits."
+    },
+    {
+      "id": 8,
+      "name": "Mace",
+      "attack": 14,
+      "perk": "Shield Crush",
+      "description": "A spiked weapon designed to break defenses."
+    },
+    {
+      "id": 9,
+      "name": "Crossbow",
+      "attack": 16,
+      "perk": "Piercing Bolt",
+      "description": "A powerful ranged weapon with strong bolts."
+    },
+    {
+      "id": 10,
+      "name": "Knife",
+      "attack": 7,
+      "perk": "Stealth Bonus",
+      "description": "A lightweight knife useful in close combat."
+    },
+    {
+      "id": 11,
+      "name": "Staff",
+      "attack": 11,
+      "perk": "Mana Boost",
+      "description": "A wooden staff often carried by travelers."
+    },
+    {
+      "id": 12,
+      "name": "Longsword",
+      "attack": 17,
+      "perk": "Heavy Slash",
+      "description": "A balanced sword with strong cutting power."
+    },
+    {
+      "id": 13,
+      "name": "Hatchet",
+      "attack": 10,
+      "perk": "Bleed Damage",
+      "description": "A small axe that is easy to carry."
+    },
+    {
+      "id": 14,
+      "name": "Pike",
+      "attack": 15,
+      "perk": "Charge Stopper",
+      "description": "A long pole weapon effective against charging enemies."
+    },
+    {
+      "id": 15,
+      "name": "Flail",
+      "attack": 16,
+      "perk": "Unblockable",
+      "description": "A chained weapon with unpredictable swings."
+    },
+    {
+      "id": 16,
+      "name": "Short Sword",
+      "attack": 11,
+      "perk": "Fast Combo",
+      "description": "A compact sword favored for fast combat."
+    },
+    {
+      "id": 17,
+      "name": "Warhammer",
+      "attack": 20,
+      "perk": "Earthquake",
+      "description": "A massive hammer used in heavy battles."
+    },
+    {
+      "id": 18,
+      "name": "Scythe",
+      "attack": 14,
+      "perk": "Life Steal",
+      "description": "A farming tool repurposed as a weapon."
+    },
+    {
+      "id": 19,
+      "name": "Battle Axe",
+      "attack": 19,
+      "perk": "Rage Boost",
+      "description": "A large axe built for warfare."
+    },
+    {
+      "id": 20,
+      "name": "Slingshot",
+      "attack": 5,
+      "perk": "Rapid Fire",
+      "description": "A simple ranged weapon using small stones."
+    }
+  ]
+}
+
