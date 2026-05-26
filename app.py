@@ -3,6 +3,7 @@ import time
 import json
 with open("weapons.json", "r") as file:
     weapons_data = json.load(file)
+    weapons = weapons_data["weapons"]
 class hero:
     def __init__(self,name,money,weapon,health):
         self.name=name
@@ -11,7 +12,11 @@ class hero:
         self.health=health
         name == input("What Will you name yourself?")
     def randomstats(self):
-        print("@")
+        randommoney = random.randint(1,100)
+        randomweapon = random.choice(weapons)
+        yourweapon = (randomweapon)
+        randomhealth = random.randint(100,150)
+        lebron = hero("random",randommoney,yourweapon,randomhealth)
 class inventory:
     def __init__(self,item):
         self.item=item
@@ -318,6 +323,7 @@ Monsterdict=Kingsley.__dict__
 
 lebronjames = hero("lebron",1420000000, "basketball", 9999999999999999999)
 lebron=lebronjames.__dict__
+lebronjames.randomstats()
 print(lebron)
 print(Monsterdict)
 
