@@ -4,19 +4,25 @@ import json
 with open("weapons.json", "r") as file:
     weapons_data = json.load(file)
     weapons = weapons_data["weapons"]
+randomnumber = random.randint(1,20)
+randomweapon=weapons[randomnumber]["name"]
+randomweapondmg = int(weapons[randomnumber]["attack"])
 class hero:
     def __init__(self,name,money,weapon,health):
         self.name=name
         self.money=money
         self.weapon=weapon
         self.health=health
-        name == input("What Will you name yourself?")
-    def randomstats(self):
-        randommoney = random.randint(1,100)
-        randomweapon = random.choice(weapons)
-        yourweapon = (randomweapon)
-        randomhealth = random.randint(100,150)
-        lebron = hero("random",randommoney,yourweapon,randomhealth)
+    def weaponpowerup(self):
+        weaponpowerup = input("Do You Want to level your weapon damage up for 10$? Yes/No").lower()
+        if weaponpowerup == ("yes"):
+            randomweapondmg = int(weapons[randomnumber]["attack"])
+            randomweapondmg += 10
+            self.money -= 10
+            print("Upgraded weapon dmg by 10")
+            print("Took 10$ away!")
+        else :
+            print("broke ass lol")
 class inventory:
     def __init__(self,item):
         self.item=item
@@ -37,13 +43,14 @@ class Villain:
             print(f"{self.__weapon} has done {damage} damage!")
             break
 
-
     def summoned(self,__name):
         print(f"{self.name} has summoned {__name}!")
 
     def gettingattacked(self):
-        attacked = random.randint(20,30)
-        print(f"heroname has done {attacked} damage to {self.name}")
+        name = input("What is Your Name?")
+        lebronjames = hero(name,random.randint(1,100), randomweapon, random.randint(100,200))
+        attacked = randomweapondmg
+        print(f"{name} has done {attacked} damage to {self.name}")
         self.__hp -= attacked
         print(f"{self.name} health is now {self.__hp}!")
         
@@ -102,9 +109,8 @@ class Monster(Villain):
             print(f"You Have killed {Monsterdict['_Monster__name']}")
     
 class dungeon(hero):
-    def __init__(self,name,room):
+    def __init__(self,name):
         self.name=name
-        self.room=room
     
     def entryroom(self):
         dungeon_responses = {
@@ -129,15 +135,19 @@ class dungeon(hero):
     def bridgeroom(self): 
         print("A bridge lays between you and venturing farther into the dungeon.The bridge groaned beneath the weight of the wind, its broken planks swaying above the dark ravine below.")
         bridge=input(f"Do You Wish To cross the bridge and make it to the boss faster, or find a different route?").lower()
-        if bridge == ("yes"): #need to make it accept more inputs
-            chance = random.randint(1,4)
-            if chance == 1:
-                print("Your footing slips on the rotten planks, and within seconds you vanish into the abyss below, never to rise again.")
-                # they die instantly or lose health idk we can put the code in later
-            elif chance >= 2:
-                print("You have crossed the bridge safely, and explore deeper into the dungeon")
-        elif bridge == ("no"):#need to make it accept more inputs
-            print("you have left the room, but tripped and dropped your sword into the ravine, never to be seen again")#could add something to do this later
+        match bridge:
+            case "yes": #need to make it accept more inputs
+                chance = random.randint(1,4)
+                match chance:
+            
+                    case 1:
+                        print("Your footing slips on the rotten planks, and within seconds you vanish into the abyss below, never to rise again.")
+                    # they die instantly or lose health idk we can put the code in later
+                    case 2,3,4:
+                        print("You have crossed the bridge safely, and explore deeper into the dungeon")
+            
+            case "no":#need to make it accept more inputs
+                print("you have left the room, but tripped and dropped your sword into the ravine, never to be seen again")#could add something to do this later
     
     def traproom(self): 
         survival_choices = [
@@ -179,6 +189,7 @@ class dungeon(hero):
                 print("But then, out of nowhere, your spine snaps, causing you to pass out and die ")
 
     def fightroom(self): # almost done, will do later
+        
         fight_choices = [
             {"option": "Fight"},
             {"option": "Items"},
@@ -270,6 +281,7 @@ class dungeon(hero):
             {"option": "Fight"},
             {"option": "Items"}
         ]
+        
         countdown = 3
         print("As you walk into the room, you see it.")
         time.sleep(1)
@@ -317,18 +329,18 @@ class dungeon(hero):
                
         
 Kingsley = Monster("kingsley",1000,"MindlessCrashouts",50,80)
+
 Monsterdict=Kingsley.__dict__
 
 
-
-lebronjames = hero("lebron",1420000000, "basketball", 9999999999999999999)
+name = input("What is Your Name?")
+lebronjames = hero(name,random.randint(1,100), randomweapon, random.randint(100,200))
 lebron=lebronjames.__dict__
-lebronjames.randomstats()
 print(lebron)
 print(Monsterdict)
 
-arbys=dungeon("Arbys",10)
-""" 
-arbys.fightroom() 
-""" 
-"""arbys.bossroom() """
+arbys=dungeon("Arbys")
+
+""" arbys.fightroom()  """
+lebronjames.weaponpowerup()
+arbys.bossroom()
