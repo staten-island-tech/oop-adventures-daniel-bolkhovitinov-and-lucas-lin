@@ -122,31 +122,31 @@ class dungeon(hero):
                 }
         print(f"You have entered into {self.name} dungeon.")
         
-        decision=input("Do You Wish to Continue In? Yes/No: ")
+        decision=input("Do You Wish to Continue In? Yes/No: ").lower()
         
-        if  decision == ("no"):
-            print("You Have No Choice get yo sorry ahh in there lol")
-            health = 100
-            damaged =  health/2 
-            print(f"Your health has fallen by {damaged} health")
-        elif decision == ("yes"):
-            randomline=random.randint(1,5)
-            print(dungeon_responses[randomline])
+        match decision:
+            case ("yes"):
+                randomline=random.randint(1,5)
+                print(dungeon_responses[randomline])
+            case ("no"):
+                print("You Have No Choice get yo sorry ahh in there lol")
+                health = 100
+                damaged =  health/2 
+                print(f"Your health has fallen by {damaged} health")
+
     def bridgeroom(self): 
         print("A bridge lays between you and venturing farther into the dungeon.The bridge groaned beneath the weight of the wind, its broken planks swaying above the dark ravine below.")
         bridge=input(f"Do You Wish To cross the bridge and make it to the boss faster, or find a different route?").lower()
         match bridge:
-            case "yes": #need to make it accept more inputs
+            case ("yes"):                 
                 chance = random.randint(1,4)
                 match chance:
-            
                     case 1:
                         print("Your footing slips on the rotten planks, and within seconds you vanish into the abyss below, never to rise again.")
                     # they die instantly or lose health idk we can put the code in later
-                    case 2,3,4:
+                    case 2|3|4:
                         print("You have crossed the bridge safely, and explore deeper into the dungeon")
-            
-            case "no":#need to make it accept more inputs
+            case ("no"): 
                 print("you have left the room, but tripped and dropped your sword into the ravine, never to be seen again")#could add something to do this later
     
     def traproom(self): 
@@ -155,39 +155,40 @@ class dungeon(hero):
            {"name": "run as fast as you can into the crack"},
            {"name":"use your items and body weight to hold the walls in place"},
         ]
-           
         print("You walked in the blank room, and saw nothing, but then, hidden mechanisms clicked to life around them")
         time.sleep(1)
         print("The chamber was a trap room, and the doors slammed shut behind them")
         time.sleep(1)
         print("As the walls close in on you, you see a crevice on the wall for survival, and see a pipe on the ceiling. Do You")
-        
         for index,items in enumerate(survival_choices):
             print(index, ":", items["name"])
-
         choice = int(input("What Do you want to do? Pick the number to choose your choice:"))
-
-        if choice == 0:
-            survival =random.randint(1,10)
-            if survival  == 1:
-                print("You jump towards the pipe and hang on to it. As the walls close in, you hang on with dear life and manage to make it out from a vent hidden in the ceiling.")
-            else :
-                print("You jump up, but your hands slip and you fall and you die")
-        elif choice == 1:
-            survivalpt2 = random.randint(1,3)
-            if survivalpt2 ==  1:
-                print("You run as fast as you can, and squeezed in the hole. As the walls contract, you see gold appear from the floor.")
-            else : # change later
-                print("You run as fast as you can, but then, you trip and die")
-        elif choice == 2:
-            survivalpt3  = random.randint(1,100)
-            if survivalpt3 == 1:
-                print("As you brace your items and muscles against the walls, you suddenly spike in aderinline and coristol, giving you immense strength untill the walls contract. As you passout, gold and jewels fall from the ceiling")
-            else : # change later
-                print("As you brace yourself, you withstand your body, against the forces of the walls")
+        match choice:
+            
+            case 0:
+                survival =random.randint(1,10)
+                match survival:
+                    case 1:
+                        print("You jump towards the pipe and hang on to it. As the walls close in, you hang on with dear life and manage to make it out from a vent hidden in the ceiling.")
+                    case 2|3|4|5|6|7|8|9|10:
+                        print("You jump up, but your hands slip and you fall and you die")
+            case 1:
+                survivalpt2 = random.randint(1,3)
+                match survivalpt2:
+                    case 1:
+                        print("You run as fast as you can, and squeezed in the hole. As the walls contract, you see gold appear from the floor.")
+                    case 2|3:
+                        print("You run as fast as you can, but then, you trip and die")
+            case 2:
+                survivalpt3  = random.randint(1,100)
+                if survivalpt3 == 1:
+                    print("As you brace your items and muscles against the walls, you suddenly spike in aderinline and coristol, giving you immense strength untill the walls contract. As you passout, gold and jewels fall from the ceiling")
+                else : # change later
+                    print("As you brace yourself, you withstand your body, against the forces of the walls")
                 time.sleep(2)
                 print("But then, out of nowhere, your spine snaps, causing you to pass out and die ")
-
+        
+       
     def fightroom(self): # almost done, will do later
         
         fight_choices = [
@@ -218,35 +219,37 @@ class dungeon(hero):
             for items in orc_hp:
                 print(f"Orc: {items['name']} hp: {items['health']}")
             print(f"Monster: {Monsterdict["_Monster__name"]}, hp:{Monsterdict["hp"]}")
+            
             heroweapondmg = random.randint(60,70)# fixed value later
+            
             choice = int(input("What Will You Do? Type number for option: ")) #inventory not made so items dont work 
-            if choice == 0:
-                fight = input("Who are you attacking? Type name to decide: ").lower() #health is fixed, doesnt change in text at all
-                if fight == ("rattlefang"): #babyproof later
-                    orc_hp[0]["health"] -= heroweapondmg
-                    print(f"{orc_hp[0]["name"]} is now at {orc_hp[0]["health"]} health!")
-                elif fight == "murkbit":
-                    orc_hp[1]["health"] -= heroweapondmg
-                    print(f"{orc_hp[1]["name"]} is now at {orc_hp[1]["health"]} health!")
-                elif fight == "skarnox":
-                    orc_hp[2]["health"] -= heroweapondmg
-                    print(f"{orc_hp[2]["name"]} is now at {orc_hp[2]["health"]} health!")
-                elif fight == Monsterdict["_Monster__name"]:
-                    Monsterdict["hp"] -= heroweapondmg
-                    print(f"{Monsterdict['_Monster__name']} is now at {Monsterdict['hp']} health")
-                
-                else :
-                    print("Try Again")
-                    continue
-            if choice == 1:
-                print("Your bag has nothing because you dropped it when you tripped")
-            if choice == 2:
-                Runaway = random.randint(1,10)
-                if Runaway >= 8:
-                    print("You escaped the room, and ran away")
-                    break
-                elif Runaway <= 8:
-                    print("You tried to run, but failed")
+            match choice:
+                case 0:
+                    fight = input("Who are you attacking? Type name to decide:").lower()
+                    match fight:
+                        case ("rattlefang"):
+                            orc_hp[0]["health"] -= heroweapondmg
+                            print(f"{orc_hp[0]["name"]} is now at {orc_hp[0]["health"]} health!")
+                        case ("murkbit"):
+                            orc_hp[1]["health"] -= heroweapondmg
+                            print(f"{orc_hp[1]["name"]} is now at {orc_hp[1]["health"]} health!")
+                        case ("skarnox"):
+                            orc_hp[2]["health"] -= heroweapondmg
+                            print(f"{orc_hp[2]["name"]} is now at {orc_hp[2]["health"]} health!")
+                        case "kingsley":
+                            Monsterdict["hp"] -= heroweapondmg
+                            print(f"{Monsterdict['_Monster__name']} is now at {Monsterdict['hp']} health")
+                case 1:
+                    print("Your bag has nothing because you dropped it when you tripped")
+                case 2:
+                    Runaway = random.randint(1,10)
+                    match Runaway:
+                        case 1|2|3|4|5|6|7|8:
+                            print("You tried to run, but failed") 
+                        case 9|10:
+                            print("You escaped the room, and ran away")
+                            break
+        
             
             livingorc = [orc for orc in orc_hp if orc["health"] > 0]
             if livingorc:
@@ -342,5 +345,7 @@ print(Monsterdict)
 arbys=dungeon("Arbys")
 
 """ arbys.fightroom()  """
-lebronjames.weaponpowerup()
-arbys.bossroom()
+""" lebronjames.weaponpowerup()
+arbys.bossroom() """
+""" arbys.bridgeroom() """
+""" arbys.traproom() """
