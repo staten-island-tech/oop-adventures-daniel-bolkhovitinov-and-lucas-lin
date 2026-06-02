@@ -53,7 +53,7 @@ class Villain:
         
     def weaponattack(self):
         while self.__hp > 0:
-            damage = 20
+            damage = random.randint(10,30)
             print(f"{self.__weapon} has done {damage} damage!")
             break
 
@@ -93,8 +93,10 @@ class Villain:
         
         if self.__hp <= 0:
             print(f"{self.name} has been defeated.{self.name} has dropped {self.__money} money and dropped {self.__weapon}!")
-            print("You have defeated Goyco!")
+            print(f"You have defeated {self.name}!")
+            time.sleep(1)
             print("You escaped the dungeon and became a legend!")
+            time.sleep(1)
             print("YOU WIN!")
             exit()
 
@@ -146,6 +148,7 @@ class dungeon(hero):
             case ("yes"):
                 randomline=random.randint(1,5)
                 print(dungeon_responses[randomline])
+                time.sleep(1)
             case ("no"):
                 print("You Have No Choice get yo sorry ahh in there lol")
                 health = 100
@@ -154,18 +157,26 @@ class dungeon(hero):
 
     def bridgeroom(self): 
         print("A bridge lays between you and venturing farther into the dungeon.The bridge groaned beneath the weight of the wind, its broken planks swaying above the dark ravine below.")
-        bridge=input(f"Do You Wish To cross the bridge and make it to the boss faster, or find a different route?").lower()
-        match bridge:
-            case ("yes"):                 
-                chance = random.randint(1,4)
-                match chance:
-                    case 1:
-                        print("Your footing slips on the rotten planks, and within seconds you vanish into the abyss below, never to rise again.")
-                    # they die instantly or lose health idk we can put the code in later
-                    case 2|3|4:
-                        print("You have crossed the bridge safely, and explore deeper into the dungeon")
-            case ("no"): 
-                print("you have left the room, but tripped and dropped your sword into the ravine, never to be seen again")#could add something to do this later
+        
+        while True:
+            bridge=input(f"Do You Wish To cross the bridge and make it to the boss faster, or find a different route? Yes/No").lower()
+            match bridge:
+                case ("yes"):                 
+                    chance = random.randint(1,4)
+                    match chance:
+                        case 1:
+                            print("Your footing slips on the rotten planks, and within seconds you vanish into the abyss below, never to rise again.")
+                            death()
+                            break
+                    
+                        case 2|3|4:
+                            print("You have crossed the bridge safely, and explore deeper into the dungeon")
+                            break
+                case ("no"): 
+                    print("you have left the room, but tripped and dropped your sword into the ravine, never to be seen again")
+                case _:
+                    print("Try Again")
+                
     
     def traproom(self): 
         survival_choices = [
@@ -190,21 +201,24 @@ class dungeon(hero):
                         print("You jump towards the pipe and hang on to it. As the walls close in, you hang on with dear life and manage to make it out from a vent hidden in the ceiling.")
                     case 2|3|4|5|6|7|8|9|10:
                         print("You jump up, but your hands slip and you fall and you die")
+                        death()
             case 1:
                 survivalpt2 = random.randint(1,3)
                 match survivalpt2:
-                    case 1:
+                    case 1|2:
                         print("You run as fast as you can, and squeezed in the hole. As the walls contract, you see gold appear from the floor.")
-                    case 2|3:
+                    case 3:
                         print("You run as fast as you can, but then, you trip and die")
+                        death()
             case 2:
                 survivalpt3  = random.randint(1,100)
                 if survivalpt3 == 1:
                     print("As you brace your items and muscles against the walls, you suddenly spike in aderinline and coristol, giving you immense strength untill the walls contract. As you passout, gold and jewels fall from the ceiling")
-                else : # change later
+                else :
                     print("As you brace yourself, you withstand your body, against the forces of the walls")
                 time.sleep(2)
-                print("But then, out of nowhere, your spine snaps, causing you to pass out and die ")
+                print("But then, out of nowhere, your spine snaps, causing you to pass out and die ")  
+                death()
         
        
     def fightroom(self): # almost done, will do later
@@ -238,24 +252,24 @@ class dungeon(hero):
                 print(f"Orc: {items['name']} hp: {items['health']}")
             print(f"Monster: {Monsterdict["_Monster__name"]}, hp:{Monsterdict["hp"]}")
             
-            heroweapondmg = random.randint(60,70)# fixed value later
             
-            choice = int(input("What Will You Do? Type number for option: ")) #inventory not made so items dont work 
+            
+            choice = int(input("What Will You Do? Type number for option: ")) 
             match choice:
                 case 0:
                     fight = input("Who are you attacking? Type name to decide:").lower()
                     match fight:
                         case ("rattlefang"):
-                            orc_hp[0]["health"] -= heroweapondmg
+                            orc_hp[0]["health"] -= randomweapondmg
                             print(f"{orc_hp[0]["name"]} is now at {orc_hp[0]["health"]} health!")
                         case ("murkbit"):
-                            orc_hp[1]["health"] -= heroweapondmg
+                            orc_hp[1]["health"] -= randomweapondmg
                             print(f"{orc_hp[1]["name"]} is now at {orc_hp[1]["health"]} health!")
                         case ("skarnox"):
-                            orc_hp[2]["health"] -= heroweapondmg
+                            orc_hp[2]["health"] -= randomweapondmg
                             print(f"{orc_hp[2]["name"]} is now at {orc_hp[2]["health"]} health!")
                         case "kingsley":
-                            Monsterdict["hp"] -= heroweapondmg
+                            Monsterdict["hp"] -= randomweapondmg
                             print(f"{Monsterdict['_Monster__name']} is now at {Monsterdict['hp']} health")
                 case 1:
                     print("Inventory:")
@@ -273,7 +287,7 @@ class dungeon(hero):
                         print("You don't have any Health Potions!")
                     if use == "damage potion":
                         if heroinventory.use_item("damage potion"):
-                            heroweapondmg += 20
+                            randomweapondmg += 20
                         print("Damage increased by 20 for this fight!")
                 case 2:
                     Runaway = random.randint(1,10)
@@ -314,8 +328,10 @@ class dungeon(hero):
             if Monsterdict["hp"] <= 0:
                     print(f"You have killed {Monsterdict['_Monster__name']}.")
                     countdown == -1
-                    
-    def bossroom(self): #also mostly done, will need to add death and inventory, and end it here because this is last room
+
+        
+
+    def bossroom(self): 
         fight_choices = [
             {"option": "Fight"},
             {"option": "Items"}
@@ -359,6 +375,10 @@ class dungeon(hero):
                         print(f"HP is now {herohealth}")
                 else:
                     print("You don't have any Health Potions!")
+                if use == "damage potion":
+                        if heroinventory.use_item("damage potion"):
+                            randomweapondmg += 20
+                        print("Damage increased by 20 for this fight!")
             
             Goyco.weaponattack()
             
@@ -369,6 +389,8 @@ class dungeon(hero):
                     Kingsley.attack(self)
                     countdown += 3
                 break
+            if herohealth <= 0:
+                death()
 
 
 def intro():
@@ -402,31 +424,57 @@ def death():
         "The dungeon remains undefeated.",
         "You fought bravely, but bravery was not enough."
     ]
-
     print("\nYOU DIED")
     print(random.choice(death_messages))
-    exit()            
-  
-        
+    exit()
+def victory():
+    print("The dungeon begins to collapse.")
+    time.sleep(2)
+
+    print("The monsters flee in terror.")
+    time.sleep(2)
+
+    print("Sunlight shines through the ruined entrance.")
+    time.sleep(2)
+
+    print("For the first time in centuries, the dungeon has been conquered.")
+    time.sleep(2)
+
+    print(f"{name} emerges as a hero.")
+    time.sleep(2)
+
+    print("Songs will be sung of this day for generations.")
+    time.sleep(2)
+
+    print("===================================")
+    print("            YOU WIN")
+    print("===================================")
+
+    
+    exit()    
+
 Kingsley = Monster("kingsley",1000,"MindlessCrashouts",50,80)
-
 Monsterdict=Kingsley.__dict__
-
 heroinventory = Inventory()
 name = input("What is Your Name?")
-lebronjames = hero(name,random.randint(1,100), randomweapon, random.randint(100,200),randomweapondmg)
+lebronjames = hero(name,random.randint(10,100), randomweapon, random.randint(100,200),randomweapondmg)
 lebron=lebronjames.__dict__
 print(lebron)
-print(Monsterdict)
-
 arbys=dungeon("Arbys")
+
 rooms = [
-    arbys.entryroom,   
-    arbys.bridgeroom,    
-    arbys.traproom,
-    arbys.fightroom,    
-    arbys.bossroom,
+    
+    intro(),
+    arbys.entryroom(),   
+    arbys.bridgeroom(),    
+    arbys.traproom(),
+    lebronjames.weaponpowerup(),
+    arbys.fightroom(),
+    lebronjames.weaponpowerup(),
+    arbys.bossroom(),
+    victory()
 ]
 
 for room in rooms:
-    room()
+    print(room)
+
