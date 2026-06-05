@@ -6,7 +6,7 @@ with open("weapons.json", "r") as file:
     weapons = weapons_data["weapons"]
 randomnumber = random.randint(0, len(weapons)-1)
 randomweapon=weapons[randomnumber]["name"]
-randomweapondmg = int(weapons[randomnumber]["attack"])
+
 class hero:
     def __init__(self,name,money,weapon,health,damage):
         self.name=name
@@ -15,19 +15,56 @@ class hero:
         self.health=health
         self.damage=damage
     def weaponpowerup(self):
-        weaponpowerup = input("Do You Want to level your weapon damage up for 10$? Yes/No").lower()
-        if weaponpowerup == ("yes"):
-            self.damage += 10
-            self.money -= 10
-            print("Upgraded weapon dmg by 10")
-            print("Took 10$ away!")
-        else :
-            print("broke ass lol")
+        maxpower = 0 
+        while True:
+            weaponpowerup = input("Do You Want to level your weapon damage up for 10$? Yes/No").lower()
+            if weaponpowerup == ("yes"):
+                self.damage += 6
+                self.money -= 10
+                maxpower += 1
+                if self.money <= 9:
+                    break
+                if maxpower == 3:
+                    print("Ran out of powerups")
+                    break
+                print("Upgraded weapon dmg by 6")
+                print("Took 10$ away!")
+                print(f"You Now Have {self.money} money now")
+            if weaponpowerup == ("no"):
+                print("Brokie")
+                break
+    def weaponpowerupbutexpensive(self):
+        maxpower = 0 
+        while True:
+            weaponpowerup = input("Do You Want to level your weapon damage up for 60$? Yes/No").lower()
+            if weaponpowerup == ("yes"):
+                self.damage += 8
+                self.money -=60
+                maxpower += 1
+                if self.money <= 59:
+                    break
+                if maxpower == 3:
+                    print("Ran out of powerups")
+                    break
+                print("Upgraded weapon dmg by 8")
+                print("Took 60$ away!")
+                print(f"You Now Have {self.money} money now")
+            if weaponpowerup == ("no"):
+                print("Brokie")
+                break
     def heal(self, amount):
         self.health += amount
         print(f"You healed {amount} HP!")
         print(f"Current HP: {self.health}")
-
+randomweapondmg = int(weapons[randomnumber]["attack"])
+name = input("What is Your Name?")
+lebronjames = hero(name,random.randint(10,100), randomweapon, random.randint(100,200),randomweapondmg)
+lebron=lebronjames.__dict__
+heroname = lebronjames.name
+heroweapon = lebronjames.weapon
+herohealth = lebronjames.health
+heromoney = lebronjames.money
+herodamage = lebronjames.damage
 class Inventory:
     def __init__(self):
             self.items = {
@@ -111,14 +148,17 @@ class Monster(Villain):
         self.damage = damage
 
     def attack(power,self):
-        damage=random.randint(50,100)
+        damage=random.randint(67,100)
         print(f"{Monsterdict['_Monster__name']} with {Monsterdict['power']} has done {damage} damage!")
+        herohealth = lebronjames.health
+        herohealth -= damage
 
     def block(self):
         while True:
             randomblockchance = random.randint(1,2)
             break
-        heroattack=int(50)
+        randomweapondmg = int(weapons[randomnumber]["attack"])
+        heroattack=randomweapondmg
         if randomblockchance == 1:
             dmgreduction=heroattack/2
             print(f"{self.__name} has blocked your attack by {dmgreduction} damage!")
@@ -141,25 +181,28 @@ class dungeon(hero):
                 5: "Alright… let’s see what’s waiting for us inside."
                 }
         print(f"You have entered into {self.name} dungeon.")
+        while True:
+            decision=input("Do You Wish to Continue In? Yes/No: ").lower()
         
-        decision=input("Do You Wish to Continue In? Yes/No: ").lower()
-        
-        match decision:
-            case ("yes"):
-                randomline=random.randint(1,5)
-                print(dungeon_responses[randomline])
-                time.sleep(1)
-            case ("no"):
-                print("You Have No Choice get yo sorry ahh in there lol")
-                health = 100
-                damaged =  health/2 
-                print(f"Your health has fallen by {damaged} health")
+            match decision:
+                case ("yes"):
+                    randomline=random.randint(1,5)
+                    print(dungeon_responses[randomline])
+                    time.sleep(1)
+                    break
+                case ("no"):
+                    print("You Have No Choice get yo sorry ahh in there lol")
+                    damaged = herohealth/2
+                    print(f"Your health has fallen by {damaged} health")
+                    break
+                case _:
+                    print("Try Again")
 
     def bridgeroom(self): 
         print("A bridge lays between you and venturing farther into the dungeon.The bridge groaned beneath the weight of the wind, its broken planks swaying above the dark ravine below.")
         
         while True:
-            bridge=input(f"Do You Wish To cross the bridge and make it to the boss faster, or find a different route? Yes/No").lower()
+            bridge=input(f"Do You Wish To cross the bridge and make it to the boss faster, or find a different route? Yes/No:").lower()
             match bridge:
                 case ("yes"):                 
                     chance = random.randint(1,4)
@@ -171,9 +214,11 @@ class dungeon(hero):
                     
                         case 2|3|4:
                             print("You have crossed the bridge safely, and explore deeper into the dungeon")
+                            time.sleep(1)
                             break
                 case ("no"): 
-                    print("you have left the room, but tripped and dropped your sword into the ravine, never to be seen again")
+                    print("you have left the room, but tripped and dropped money into the ravine, never to be seen again")
+                    heromoney -= 20
                 case _:
                     print("Try Again")
                 
@@ -184,6 +229,7 @@ class dungeon(hero):
            {"name": "run as fast as you can into the crack"},
            {"name":"use your items and body weight to hold the walls in place"},
         ]
+        heromoney = lebronjames.money
         print("You walked in the blank room, and saw nothing, but then, hidden mechanisms clicked to life around them")
         time.sleep(1)
         print("The chamber was a trap room, and the doors slammed shut behind them")
@@ -191,37 +237,44 @@ class dungeon(hero):
         print("As the walls close in on you, you see a crevice on the wall for survival, and see a pipe on the ceiling. Do You")
         for index,items in enumerate(survival_choices):
             print(index, ":", items["name"])
-        choice = int(input("What Do you want to do? Pick the number to choose your choice:"))
-        match choice:
-            
-            case 0:
-                survival =random.randint(1,10)
-                match survival:
-                    case 1:
-                        print("You jump towards the pipe and hang on to it. As the walls close in, you hang on with dear life and manage to make it out from a vent hidden in the ceiling.")
-                    case 2|3|4|5|6|7|8|9|10:
-                        print("You jump up, but your hands slip and you fall and you die")
-                        death()
-            case 1:
-                survivalpt2 = random.randint(1,3)
-                match survivalpt2:
-                    case 1|2:
-                        print("You run as fast as you can, and squeezed in the hole. As the walls contract, you see gold appear from the floor.")
-                    case 3:
-                        print("You run as fast as you can, but then, you trip and die")
-                        death()
-            case 2:
-                survivalpt3  = random.randint(1,100)
-                if survivalpt3 == 1:
-                    print("As you brace your items and muscles against the walls, you suddenly spike in aderinline and coristol, giving you immense strength untill the walls contract. As you passout, gold and jewels fall from the ceiling")
-                else :
-                    print("As you brace yourself, you withstand your body, against the forces of the walls")
-                time.sleep(2)
-                print("But then, out of nowhere, your spine snaps, causing you to pass out and die ")  
-                death()
-        
+        while True:
+            choice = int(input("What Do you want to do? Pick the number to choose your choice:"))
+            match choice:
+                case 0:
+                    survival =random.randint(1,10)
+                    match survival:
+                        case 1:
+                            print("You jump towards the pipe and hang on to it. As the walls close in, you hang on with dear life and manage to make it out from a vent hidden in the ceiling.")
+                            break
+                        case 2|3|4|5|6|7|8|9|10:
+                            print("You jump up, but your hands slip and you fall and you die")
+                            death()
+                case 1:
+                    survivalpt2 = random.randint(1,4)
+                    match survivalpt2:
+                        case 1|2|3:
+                            print("You run as fast as you can, and squeezed in the hole. As the walls contract, you see gold appear from the floor.")
+                            heromoney += 50
+                            break
+                        case 4:
+                            print("You run as fast as you can, but then, you trip and die")
+                            death()
+                case 2:
+                    survivalpt3  = random.randint(1,100)
+                    if survivalpt3 == 1:
+                        print("As you brace your items and muscles against the walls, you suddenly spike in aderinline and coristol, giving you immense strength untill the walls contract. As you passout, gold and jewels fall from the ceiling")
+                        heromoney += 10000
+                        break
+                    else :
+
+                        print("As you brace yourself, you withstand your body, against the forces of the walls")
+                    time.sleep(2)
+                    print("But then, out of nowhere, your spine snaps, causing you to pass out and die ")  
+                    death()
+                case _:
+                    print("Try Again")
        
-    def fightroom(self): # almost done, will do later
+    def fightroom(self):
         
         fight_choices = [
             {"option": "Fight"},
@@ -239,8 +292,9 @@ class dungeon(hero):
         heroname = lebron['name']
         heroweapon = lebron['weapon']
         herohealth = lebronjames.health
+        herodamage = lebronjames.damage
         countdown = 3
-        orcdmg = random.randint(6,8)
+        orcdmg = random.randint(15,30)
         print(f"As you grip your {heroweapon} tightly, the room lights up, showing a group of orcs ready to kill you {heroname}.")
         time.sleep(1)
         print(f"You then see {Monsterdict['_Monster__name']} show up, ready to kill you")
@@ -251,44 +305,46 @@ class dungeon(hero):
             for items in orc_hp:
                 print(f"Orc: {items['name']} hp: {items['health']}")
             print(f"Monster: {Monsterdict["_Monster__name"]}, hp:{Monsterdict["hp"]}")
-            
-            
-            
+    
             choice = int(input("What Will You Do? Type number for option: ")) 
             match choice:
                 case 0:
                     fight = input("Who are you attacking? Type name to decide:").lower()
                     match fight:
                         case ("rattlefang"):
-                            orc_hp[0]["health"] -= randomweapondmg
+                            orc_hp[0]["health"] -= herodamage
                             print(f"{orc_hp[0]["name"]} is now at {orc_hp[0]["health"]} health!")
                         case ("murkbit"):
-                            orc_hp[1]["health"] -= randomweapondmg
+                            orc_hp[1]["health"] -= herodamage
                             print(f"{orc_hp[1]["name"]} is now at {orc_hp[1]["health"]} health!")
                         case ("skarnox"):
-                            orc_hp[2]["health"] -= randomweapondmg
+                            orc_hp[2]["health"] -= herodamage
                             print(f"{orc_hp[2]["name"]} is now at {orc_hp[2]["health"]} health!")
-                        case "kingsley":
-                            Monsterdict["hp"] -= randomweapondmg
+                        case ("kingsley"):
+                            Monsterdict["hp"] -= herodamage
                             print(f"{Monsterdict['_Monster__name']} is now at {Monsterdict['hp']} health")
+                        case _:
+                            print("Try Again")
                 case 1:
                     print("Inventory:")
                     for item, qty in heroinventory.items.items():
                         print(f"{item}: {qty}")
+                    while True:
+                        use = input("Which item do you want to use? ").lower()
 
-                    use = input("Which item do you want to use? ").lower()
-
-                    if use == "health potion":
-                        if heroinventory.use_item("health potion"):
-                            herohealth += 50
+                        if use == "health potion":
+                            if heroinventory.use_item("health potion"):
+                                herohealth += 50
                             print("You used a Health Potion!")
                             print(f"HP is now {herohealth}")
-                    else:
-                        print("You don't have any Health Potions!")
-                    if use == "damage potion":
-                        if heroinventory.use_item("damage potion"):
-                            randomweapondmg += 20
-                        print("Damage increased by 20 for this fight!")
+                            break
+                        if use == "damage potion":
+                            if heroinventory.use_item("damage potion"):
+                                randomweapondmg += 20
+                            print("Damage increased by 20 for this fight!")
+                            break
+                        else:
+                            print("Try Again")
                 case 2:
                     Runaway = random.randint(1,10)
                     match Runaway:
@@ -297,7 +353,8 @@ class dungeon(hero):
                         case 9|10:
                             print("You escaped the room, and ran away")
                             break
-        
+                case _:
+                    print("Try Again")
             
             livingorc = [orc for orc in orc_hp if orc["health"] > 0]
             if livingorc:
@@ -362,24 +419,27 @@ class dungeon(hero):
                 elif whichone == Monsterdict['_Monster__name']:
                     Kingsley.block()
             if choice ==  1:
-                print("Inventory:")
-                for item, qty in heroinventory.items.items():
-                    print(f"{item}: {qty}")
+                    print("Inventory:")
+                    for item, qty in heroinventory.items.items():
+                        print(f"{item}: {qty}")
+                    while True:
+                        use = input("Which item do you want to use? ").lower()
 
-                use = input("Which item do you want to use? ").lower()
-
-                if use == "health potion":
-                    if heroinventory.use_item("health potion"):
-                        herohealth += 50
-                        print("You used a Health Potion!")
-                        print(f"HP is now {herohealth}")
-                else:
-                    print("You don't have any Health Potions!")
-                if use == "damage potion":
-                        if heroinventory.use_item("damage potion"):
-                            randomweapondmg += 20
-                        print("Damage increased by 20 for this fight!")
-            
+                        if use == "health potion":
+                            if heroinventory.use_item("health potion"):
+                                herohealth += 50
+                            print("You used a Health Potion!")
+                            print(f"HP is now {herohealth}")
+                            break
+                        if use == "damage potion":
+                            if heroinventory.use_item("damage potion"):
+                                randomweapondmg += 20
+                            print("Damage increased by 20 for this fight!")
+                            break
+                        else:
+                            print("Try Again")       
+            else :
+                print("Too Bad You Forefeit your turn")     
             Goyco.weaponattack()
             
             while Monsterdict['hp'] <= 0:
@@ -395,22 +455,22 @@ class dungeon(hero):
 
 def intro():
     print("For years, travelers have spoken of a dungeon hidden beyond the mountains.")
-    time.sleep(2)
+    time.sleep(1)
 
     print("Those who entered never returned.")
-    time.sleep(2)
+    time.sleep(1)
 
     print("Deep within its halls lies an horrible monster, a tyrant feared by all.")
-    time.sleep(2)
+    time.sleep(1)
 
     print("Many heroes have tried to defeat it.")
-    time.sleep(2)
+    time.sleep(1)
 
     print("All of them failed.")
-    time.sleep(2)
+    time.sleep(1)
 
     print("Today, that hero is you.")
-    time.sleep(2)
+    time.sleep(1)
 def death():
     death_messages = [
         "Your adventure ends here.",
@@ -456,9 +516,6 @@ def victory():
 Kingsley = Monster("kingsley",1000,"MindlessCrashouts",50,80)
 Monsterdict=Kingsley.__dict__
 heroinventory = Inventory()
-name = input("What is Your Name?")
-lebronjames = hero(name,random.randint(10,100), randomweapon, random.randint(100,200),randomweapondmg)
-lebron=lebronjames.__dict__
 print(lebron)
 arbys=dungeon("Arbys")
 
@@ -470,11 +527,10 @@ rooms = [
     arbys.traproom(),
     lebronjames.weaponpowerup(),
     arbys.fightroom(),
-    lebronjames.weaponpowerup(),
+    lebronjames.weaponpowerupbutexpensive(),
     arbys.bossroom(),
     victory()
 ]
 
 for room in rooms:
     print(room)
-
