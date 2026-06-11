@@ -17,10 +17,10 @@ class hero:
     def weaponpowerup(self):
         maxpower = 0 
         while True:
-            weaponpowerup = input("Do You Want to level your weapon damage up for 10$? Yes/No").lower()
+            weaponpowerup = input("Do You Want to level your weapon damage up for 20$? Yes/No:").lower()
             if weaponpowerup == ("yes"):
                 self.damage += 6
-                self.money -= 10
+                self.money -= 20
                 maxpower += 1
                 if self.money <= 9:
                     break
@@ -36,7 +36,7 @@ class hero:
     def weaponpowerupbutexpensive(self):
         maxpower = 0 
         while True:
-            weaponpowerup = input("Do You Want to level your weapon damage up for 60$? Yes/No").lower()
+            weaponpowerup = input("Do You Want to level your weapon damage up for 60$? Yes/No:").lower()
             if weaponpowerup == ("yes"):
                 self.damage += 8
                 self.money -=60
@@ -98,7 +98,6 @@ class Villain:
         print(f"{self.name} has summoned {__name}!")
 
     def gettingattacked(self):
-        name = input("What is Your Name?")
         lebronjames = hero(name,random.randint(1,100), randomweapon, random.randint(100,200),randomweapondmg)
         attacked = lebronjames.damage
         print(f"{name} has done {attacked} damage to {self.name}")
@@ -147,11 +146,10 @@ class Monster(Villain):
         self.hp = hp
         self.damage = damage
 
-    def attack(power,self):
+    def attack(self):
         damage=random.randint(67,100)
         print(f"{Monsterdict['_Monster__name']} with {Monsterdict['power']} has done {damage} damage!")
-        herohealth = lebronjames.health
-        herohealth -= damage
+        lebronjames.health -= damage
 
     def block(self):
         while True:
@@ -191,7 +189,7 @@ class dungeon(hero):
                     time.sleep(1)
                     break
                 case ("no"):
-                    print("You Have No Choice get yo sorry ahh in there lol")
+                    print("you turn to leave, but then, a huge gust of wind pushes you into the entrance")
                     damaged = herohealth/2
                     print(f"Your health has fallen by {damaged} health")
                     break
@@ -324,7 +322,7 @@ class dungeon(hero):
         herohealth = lebronjames.health
         herodamage = lebronjames.damage
         countdown = 3
-        orcdmg = random.randint(15,30)
+        orcdmg = random.randint(15,20)
         print(f"As you grip your {heroweapon} tightly, the room lights up, showing a group of orcs ready to kill you {heroname}.")
         time.sleep(1)
         print(f"You then see {Monsterdict['_Monster__name']} show up, ready to kill you")
@@ -336,10 +334,18 @@ class dungeon(hero):
                 print(f"Orc: {items['name']} hp: {items['health']}")
             print(f"Monster: {Monsterdict["_Monster__name"]}, hp:{Monsterdict["hp"]}")
     
-            choice = input("What Will You Do? Type the option").lower()
+            while True:
+                choice = input("What Will You Do? Type the option: ").lower()
+                if choice in ["fight", "items", "run"]:
+                    break
+                print("Invalid choice. Try again.")
             match choice:
                 case "fight":
-                    fight = input("Who are you attacking? Type name to decide:").lower()
+                    while True:
+                        fight = input("Who are you attacking? ").lower()
+                        if fight in ["rattlefang", "murkbit", "skarnox", "kingsley"]:
+                            break
+                    print("That enemy doesn't exist. Try again.")
                     match fight:
                         case ("rattlefang"):
                             orc_hp[0]["health"] -= herodamage
@@ -393,13 +399,14 @@ class dungeon(hero):
                 print(f"{randomorc["name"]} damaged you by {orcdmg}")
                 print(f"You are now at {herohealth} health!")
            
-            for orc in orc_hp:
+            for orc in orc_hp[:]:
                 if orc["health"] <= 0:
                     print(f"You have killed {orc['name']}.")
                     lebronjames.money += 50
                     print("You gained $50")
+                    orc_hp.remove(orc)
             
-            if all(orc["health"] <= 0 for orc in orc_hp) and Monsterdict['hp'] <= 0:
+            if len(orc_hp) == 0 and Monsterdict["hp"] <= 0:
                 print("All orcs are dead!")
                 break
 
@@ -414,7 +421,7 @@ class dungeon(hero):
                     countdown += 3
             if Monsterdict["hp"] <= 0:
                     print(f"You have killed {Monsterdict['_Monster__name']}.")
-                    countdown == -1
+                    countdown = -1
 
         
 
@@ -429,7 +436,7 @@ class dungeon(hero):
         time.sleep(1)
         print("You see a massive shadow, from the distance.")
         time.sleep(1)
-        Goyco = Villain("evil teacher","Textbook",100,"summons",200)
+        Goyco = Villain("crazed tyrant","Textbook",100,"summons",200)
         Villaindict=Goyco.__dict__
         Kingsley = Monster("kingsley",1000,"MindlessCrashouts",50,80)
         Monsterdict=Kingsley.__dict__
@@ -537,6 +544,9 @@ arbys=dungeon("Arbys")
 randomdungeon = [arbys.traproom, arbys.moneyroom]
 randomkid = random.choice(randomdungeon)
 
+
+arbys.bossroom()
+
 rooms = [
     intro(),
     arbys.entryroom(),   
@@ -545,12 +555,14 @@ rooms = [
     lebronjames.weaponpowerup(),
     arbys.fightroom(),
     lebronjames.weaponpowerupbutexpensive(),
+    lebronjames.heal(100),
     arbys.bossroom(),
     victory()
 ]
 
 for room in rooms:
     print(room)
+
 def death():
     death_messages = [
         "Your adventure ends here.",
