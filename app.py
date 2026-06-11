@@ -447,7 +447,12 @@ class dungeon(hero):
         while True:
             for index, items in enumerate(fight_choices):
                 print(index, ":", items["option"])
-            choice = input("What will you do? type the option").lower()
+            
+            while True:
+                choice = input("What Will You Do? Type the option: ").lower()
+                if choice in ["fight", "items"]:
+                    break
+                print("Invalid choice. Try again.")
             if choice == "fight":
                 whichone = input("Who do you choose to fight?").lower()
                 if whichone == Villaindict['name']:
