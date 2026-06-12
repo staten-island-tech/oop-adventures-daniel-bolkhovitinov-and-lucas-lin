@@ -150,9 +150,6 @@ class Villain:
             time.sleep(1)
             print("YOU WIN!")
             exit()
-
-
-
 class Monster(Villain): 
     def __init__(self, name, money,power,damage,hp):
         self.__name = name
@@ -180,7 +177,6 @@ class Monster(Villain):
             print(f"{self.__name} has took {heroattack} damage!")
         if self.hp <= 0:
             print(f"You Have killed {Monsterdict['_Monster__name']}")
-    
 class dungeon(hero):
     def __init__(self,name):
         self.name=name
@@ -415,7 +411,7 @@ class dungeon(hero):
                 time.sleep(1)
                 print(f"You are now at {herohealth} health!")
            
-        
+
             
             if len(orc_hp) == 0 and Monsterdict["hp"] <= 0:
                 print("All orcs are dead!")
@@ -507,8 +503,6 @@ class dungeon(hero):
                 break
             if herohealth <= 0:
                 death()
-
-
 def intro():
     print("For years, travelers have spoken of a dungeon hidden beyond the mountains.")
     time.sleep(1)
@@ -527,7 +521,6 @@ def intro():
 
     print("Today, that hero is you.")
     time.sleep(1)
-
 def victory():
     print("The dungeon begins to collapse.")
     time.sleep(2)
@@ -564,7 +557,7 @@ randomdungeon = [arbys.traproom, arbys.moneyroom]
 randomkid = random.choice(randomdungeon)
 
 
-arbys.fightroom()
+
 rooms = [
     intro(),
     arbys.entryroom(),   
