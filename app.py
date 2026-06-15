@@ -368,7 +368,7 @@ class dungeon(hero):
                         fight = input("Who are you attacking? ").lower()
                         if fight in ["rattlefang", "murkbit", "skarnox", "kingsley"]:
                             break
-                    print("That enemy doesn't exist. Try again.")
+                        print("That enemy doesn't exist. Try again.")
                     match fight:
                         case ("rattlefang"):
                             orc_hp[0]["health"] -= herodamage
