@@ -73,7 +73,7 @@ class hero:
         print(f"Current HP: {self.health}")
 randomweapondmg = int(weapons[randomnumber]["attack"])
 name = input("What is Your Name?")
-lebronjames = hero(name,random.randint(10,100), randomweapon, random.randint(100,200),randomweapondmg)
+lebronjames = hero(name,random.randint(10,30), randomweapon, random.randint(150,200),randomweapondmg)
 lebron=lebronjames.__dict__
 heroname = lebronjames.name
 heroweapon = lebronjames.weapon
@@ -162,9 +162,6 @@ class Villain:
             time.sleep(1)
             print("YOU WIN!")
             exit()
-
-
-
 class Monster(Villain): 
     def __init__(self, name, money,power,damage,hp):
         self.__name = name
@@ -192,7 +189,6 @@ class Monster(Villain):
             print(f"{self.__name} has took {heroattack} damage!")
         if self.hp <= 0:
             print(f"You Have killed {Monsterdict['_Monster__name']}")
-    
 class dungeon(hero):
     def __init__(self,name):
         self.name=name
@@ -424,20 +420,19 @@ class dungeon(hero):
                 randomorc = random.choice(livingorc)
                 herohealth -= orcdmg
                 print(f"{randomorc["name"]} damaged you by {orcdmg}")
+                time.sleep(1)
                 print(f"You are now at {herohealth} health!")
            
-            for orc in orc_hp:
-                if orc["health"] <= 0 and not orc["dead"]:
-                    orc["dead"] = True
-                print(f"You have killed {orc['name']}.")
-                lebronjames.money += 50
-                print("You gained $50")
+
             
             if len(orc_hp) == 0 and Monsterdict["hp"] <= 0:
                 print("All orcs are dead!")
+                print("You got 100 dollars!")
+                lebronjames.money += 100
                 break
 
             countdown -= 1
+            time.sleep(1)
             print(f"{Monsterdict['_Monster__name']} will attack you in {countdown} turns")
             
             if herohealth <= 0:
@@ -520,8 +515,6 @@ class dungeon(hero):
                 break
             if herohealth <= 0:
                 death()
-
-
 def intro():
     print("For years, travelers have spoken of a dungeon hidden beyond the mountains.")
     time.sleep(1)
@@ -540,7 +533,6 @@ def intro():
 
     print("Today, that hero is you.")
     time.sleep(1)
-
 def victory():
     print("The dungeon begins to collapse.")
     time.sleep(2)
@@ -575,6 +567,7 @@ arbys=dungeon("Arbys")
 
 randomdungeon = [arbys.traproom, arbys.moneyroom]
 randomkid = random.choice(randomdungeon)
+
 
 
 rooms = [

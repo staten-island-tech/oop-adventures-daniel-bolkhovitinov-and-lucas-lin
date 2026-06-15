@@ -6,7 +6,22 @@ with open("weapons.json", "r") as file:
     weapons = weapons_data["weapons"]
 randomnumber = random.randint(0, len(weapons)-1)
 randomweapon=weapons[randomnumber]["name"]
-
+def death():
+    death_messages = [
+        "Your adventure ends here.",
+        "The dungeon claims another victim.",
+        "Your body falls, never to rise again.",
+        "Your name fades into legend... forgotten by time.",
+        "The darkness consumes you.",
+        "Your journey has come to a tragic end.",
+        "The monsters celebrate another victory.",
+        "No songs will be sung of this ending.",
+        "The dungeon remains undefeated.",
+        "You fought bravely, but bravery was not enough."
+    ]
+    print("\nYOU DIED")
+    print(random.choice(death_messages))
+    exit()
 class hero:
     def __init__(self,name,money,weapon,health,damage):
         self.name=name
@@ -58,7 +73,7 @@ class hero:
         print(f"Current HP: {self.health}")
 randomweapondmg = int(weapons[randomnumber]["attack"])
 name = input("What is Your Name?")
-lebronjames = hero(name,random.randint(10,100), randomweapon, random.randint(100,200),randomweapondmg)
+lebronjames = hero(name,random.randint(10,30), randomweapon, random.randint(150,200),randomweapondmg)
 lebron=lebronjames.__dict__
 heroname = lebronjames.name
 heroweapon = lebronjames.weapon
@@ -310,9 +325,9 @@ class dungeon(hero):
             {"option": "Run"}
         ]
         orc_hp = [
-            {"name":"Rattlefang","health":50},
-            {"name":"Murkbit","health": 55},
-            {"name":"Skarnox","health": 45}
+            {"name": "Rattlefang", "health": 50, "dead": False},
+            {"name": "Murkbit", "health": 55, "dead": False},
+            {"name": "Skarnox", "health": 45, "dead": False}
         ]
         Kingsley = Monster("kingsley",1000,"MindlessCrashouts",50,80)
         print("As you walk in, you come across foul creatures ready to fight you")
@@ -397,27 +412,26 @@ class dungeon(hero):
                 randomorc = random.choice(livingorc)
                 herohealth -= orcdmg
                 print(f"{randomorc["name"]} damaged you by {orcdmg}")
+                time.sleep(1)
                 print(f"You are now at {herohealth} health!")
            
-            for orc in orc_hp[:]:
-                if orc["health"] <= 0:
-                    print(f"You have killed {orc['name']}.")
-                    lebronjames.money += 50
-                    print("You gained $50")
-                    orc_hp.remove(orc)
+
             
             if len(orc_hp) == 0 and Monsterdict["hp"] <= 0:
                 print("All orcs are dead!")
+                print("You got 100 dollars!")
+                lebronjames.money += 100
                 break
 
             countdown -= 1
+            time.sleep(1)
             print(f"{Monsterdict['_Monster__name']} will attack you in {countdown} turns")
             
             if herohealth <= 0:
                 death()
 
             if countdown == 0:
-                    Kingsley.attack(self)
+                    Kingsley.attack()
                     countdown += 3
             if Monsterdict["hp"] <= 0:
                     print(f"You have killed {Monsterdict['_Monster__name']}.")
@@ -550,7 +564,6 @@ randomdungeon = [arbys.traproom, arbys.moneyroom]
 randomkid = random.choice(randomdungeon)
 
 
-arbys.bossroom()
 
 rooms = [
     intro(),
@@ -568,24 +581,3 @@ rooms = [
 for room in rooms:
     print(room)
 
-def death():
-    death_messages = [
-        "Your adventure ends here.",
-        "The dungeon claims another victim.",
-        "Your body falls, never to rise again.",
-        "Your name fades into legend... forgotten by time.",
-        "The darkness consumes you.",
-        "Your journey has come to a tragic end.",
-        "The monsters celebrate another victory.",
-        "No songs will be sung of this ending.",
-        "The dungeon remains undefeated.",
-        "You fought bravely, but bravery was not enough."
-    ]
-    print("\nYOU DIED")
-    print(random.choice(death_messages))
-    tryagain = input("Do You want to reset? Yes/No: ").lower()
-    if tryagain == ("yes"):
-        for room in rooms:
-            print(room)
-    elif tryagain == ("no"):
-        exit()
